@@ -22,7 +22,7 @@ public class SampleController {
 
     @GetMapping("")
     public String getOrderWithRequestParam(
-            @RequestParam("orderId") String orderId,
+            @RequestParam(value = "orderId", required = false, defaultValue = "o123") String orderId,
             @RequestParam("orderAmount") String amount) {
         log.info("[LOG] Get some order :" + orderId + ", " + "amount : " + amount);
         return "orderId: " + orderId + ", " + "orderAmount: " + amount;
