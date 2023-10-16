@@ -2,6 +2,10 @@ package com.zerobase.zerobasewebsample.controller;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -49,6 +53,15 @@ public class SampleController {
         log.info("[LOG] Create order");
         return "order created -> orderId:1, orderAmount:1000";
     }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ExceptionHandler(IllegalAccessException.class)
+    public String handleIllegalAccessException(IllegalAccessException e) {
+        log.error("IllegalAccessException is occured.", e);
+
+        return "INVALID_ACCESS";
+    }
+
 
     @Data
     public static class CreateOrderRequest {
