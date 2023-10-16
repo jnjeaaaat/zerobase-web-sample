@@ -1,11 +1,11 @@
 package com.zerobase.zerobasewebsample.controller;
 
+import com.zerobase.zerobasewebsample.dto.ErrorResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -56,10 +56,10 @@ public class SampleController {
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(IllegalAccessException.class)
-    public String handleIllegalAccessException(IllegalAccessException e) {
-        log.error("IllegalAccessException is occured.", e);
+    public ErrorResponse handleIllegalAccessException(IllegalAccessException e) {
+        log.error("IllegalAccessException is occurred.", e);
 
-        return "INVALID_ACCESS";
+        return new ErrorResponse("INVALID_ACCESS", "IllegalAccessException is occurred.");
     }
 
 
