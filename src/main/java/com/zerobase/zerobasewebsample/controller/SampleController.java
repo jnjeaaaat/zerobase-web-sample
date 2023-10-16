@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -54,12 +55,15 @@ public class SampleController {
         return "order created -> orderId:1, orderAmount:1000";
     }
 
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(IllegalAccessException.class)
-    public ErrorResponse handleIllegalAccessException(IllegalAccessException e) {
+    public ResponseEntity<ErrorResponse> handleIllegalAccessException(IllegalAccessException e) {
         log.error("IllegalAccessException is occurred.", e);
 
-        return new ErrorResponse("INVALID_ACCESS", "IllegalAccessException is occurred.");
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .header("newHeader", "Some Value")
+                .body(new ErrorResponse("INVALID_ACCESS",
+                        "IllegalAccessException is occurred."));
     }
 
 
