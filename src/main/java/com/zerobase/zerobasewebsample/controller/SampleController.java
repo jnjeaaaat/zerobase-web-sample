@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/order")
 public class SampleController {
 
-    @GetMapping("/{orderId}")
-    public String getOrder(@PathVariable String orderId) {
-        log.info("[LOG] Get some order :" + orderId);
-        return "orderId: " + orderId + ", " + "orderAmount: 1000";
+    @GetMapping("")
+    public String getOrderWithRequestParam(
+            @RequestParam("orderId") String orderId,
+            @RequestParam("orderAmount") String amount) {
+        log.info("[LOG] Get some order :" + orderId + ", " + "amount : " + amount);
+        return "orderId: " + orderId + ", " + "orderAmount: " + amount;
     }
 
     @PostMapping("/2")
