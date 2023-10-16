@@ -1,20 +1,17 @@
 package com.zerobase.zerobasewebsample.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/order")
 public class SampleController {
 
-    @GetMapping("/1")
-    public String getOrder() {
-        log.info("[LOG] Get some order");
-        return "orderId:1, orderAmount:1000";
+    @GetMapping("/{orderId}")
+    public String getOrder(@PathVariable String orderId) {
+        log.info("[LOG] Get some order :" + orderId);
+        return "orderId: " + orderId + ", " + "orderAmount: 1000";
     }
 
     @PostMapping("/2")
