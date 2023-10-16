@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.*;
 public class SampleController {
 
     @GetMapping("/{orderId}")
-    public String getOrder(@PathVariable("orderId") String orderId) {
+    public String getOrder(@PathVariable("orderId") String orderId) throws IllegalAccessException {
         log.info("[LOG] Get some order :" + orderId);
+
+        if ("500".equals(orderId)) {
+            throw new IllegalAccessException("500 is not valid orderId");
+        }
+
         return "orderId: " + orderId + ", " + "orderAmount: " + 9000;
     }
 
