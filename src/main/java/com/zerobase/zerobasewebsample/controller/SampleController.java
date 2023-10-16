@@ -1,5 +1,8 @@
 package com.zerobase.zerobasewebsample.controller;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +31,25 @@ public class SampleController {
         return "orderId: " + orderId + ", " + "orderAmount: " + amount;
     }
 
-
+    @PostMapping("")
+    public String CreateOrderWithRequestBody(
+            @RequestBody CreateOrderRequest createOrderRequest,
+            @RequestHeader String userAccountId) {
+        log.info("[LOG] Create Order :" + createOrderRequest +
+                ", userAccountId : " + userAccountId);
+        return "orderId: " + createOrderRequest.getOrderId() + ", "
+                + "orderAmount: " + createOrderRequest.getOrderAmount();
+    }
 
     @PostMapping("/2")
     public String createOrder() {
         log.info("[LOG] Create order");
         return "order created -> orderId:1, orderAmount:1000";
+    }
+
+    @Data
+    public static class CreateOrderRequest {
+        private String orderId;
+        private Integer orderAmount;
     }
 }
